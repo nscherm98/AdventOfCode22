@@ -24,5 +24,17 @@ public class Solution
         // find maximum
         var maxCalories = totalCalories.Max();
         Console.WriteLine("Maximum: " + maxCalories);
+
+        // PART TWO
+        int totalCaloriesTopThree = getTotalTopN(totalCalories, 3);
+        Console.WriteLine("Total Top 3: " + totalCaloriesTopThree);
+    }
+
+    public static int getTotalTopN(List<int> list, int n)
+    {
+        list.Sort();
+        list.Reverse();
+        var selection = list.GetRange(0, n);
+        return selection.Sum();
     }
 }
