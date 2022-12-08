@@ -5,9 +5,14 @@ public class Solution
     {
         string path = "C:\\Users\\n.scherm\\source\\repos\\AdventOfCode22\\Day3_Rucksack_Reorganization\\input.txt";
         int summedPrios = 0;
-        foreach (string line in System.IO.File.ReadLines(path))
+        string[] lines = File.ReadAllLines(path);
+        for (int i = 0; i < lines.Length; i++)
         {
-            summedPrios += getPrio(getDuplicate(line));
+            if (i % 3 == 0)
+            {
+                var group = new Tuple<string, string, string>(lines[i], lines[i + 1], lines[i + 2]);
+                summedPrios += getPrio(getDuplicateTriplet(group));
+            }
         }
         Console.WriteLine("Total Prios: " + summedPrios);
     }
@@ -22,6 +27,20 @@ public class Solution
         foreach (char c in firstCompartment)
         {
             if (secondCompartment.Contains(c))
+            {
+                duplicate = c;
+                break;
+            }
+        }
+        return duplicate;
+    }
+
+    public static char getDuplicateTriplet(Tuple<string, string, string> group)
+    {
+        char duplicate = new char();
+        foreach (char c in group.Item1)
+        {
+            if (group.Item2.Contains(c) && group.Item3.Contains(c))
             {
                 duplicate = c;
                 break;
